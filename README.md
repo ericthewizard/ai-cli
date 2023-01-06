@@ -101,3 +101,14 @@ Your presence, a blessing I will never forsake.
 Chip, my loyal pup, so full of love and joy,
 Your friendship, a blessing I will always enjoy.
 ```
+
+Input:
+```bash
+ls | ai write a description of each file
+```
+
+Output:
+```bash
+release_pyspedas.sh: A shell script to automate the release of the Pyspedas package.
+release_pytplot.sh: A shell script to automate the release of the Pytplot package.
+```
