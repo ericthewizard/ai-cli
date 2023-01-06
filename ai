@@ -4,6 +4,7 @@ import argparse
 import openai
 import os
 import sys
+import select
 
 # Get OpenAI API key from environment variable
 openai.api_key = os.environ['OPENAI_API_KEY']
@@ -25,7 +26,14 @@ args = parser.parse_args()
 
 user_prompt = ' '.join(args.text)
 
-prompt = f"Use this format, replacing text in brackets with the result. Do not include the brackets in the output:\n[output]\n{user_prompt}:\n"
+def read_stdin():
+    if select.select([sys.stdin], [], [], 0.0)[0]:
+        return sys.stdin.read()
+    return ''
+
+input_text = read_stdin()
+
+prompt = f"Use this format, replacing text in brackets with the result. Do not include the brackets in the output:\n[output]\n{user_prompt}\n{input_text}:\n"
 
 # Get completion from API
 completion = openai.Completion.create(
