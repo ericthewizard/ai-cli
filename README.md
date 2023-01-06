@@ -40,6 +40,7 @@ Where `[text]` is the text you want to send to the API and `[options]` are any o
 
 ## Examples
 
+### Create a simple "Hello World" program
 Input:
 ```bash
 ai write a python function that prints hello world
@@ -53,6 +54,7 @@ def print_hello_world():
 print_hello_world()
 ```
 
+### Create a Flask app
 Input:
 ```bash
 ai write a Flask app that has 2 endpoints: / and /about
@@ -76,6 +78,7 @@ if __name__ == '__main__':
     app.run()
 ```
 
+### Write a sonnet
 Input:
 ```bash
 ai write a sonnet about a dog named chip
@@ -102,6 +105,7 @@ Chip, my loyal pup, so full of love and joy,
 Your friendship, a blessing I will always enjoy.
 ```
 
+### Describe the files in a directory
 Input:
 ```bash
 ls | ai write a description of each file
@@ -111,4 +115,20 @@ Output:
 ```bash
 release_pyspedas.sh: A shell script to automate the release of the Pyspedas package.
 release_pytplot.sh: A shell script to automate the release of the Pytplot package.
+```
+
+### Write a Flask app, then write a poem about the app
+Input:
+```bash
+ai write a Flask app with 3 endpoints: /, /about, /posts. Python code | ai describe the code in a rhyming poem
+```
+
+Output:
+```bash
+
+A Flask app is what we've got
+It's routes are all quite hot
+Home, About, and Posts, they all appear
+To make a website that's quite clear
+
 ```
