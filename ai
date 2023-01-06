@@ -1,0 +1,44 @@
+#!/usr/bin/env python
+
+import argparse
+import openai
+import os
+import sys
+
+# Get OpenAI API key from environment variable
+openai.api_key = os.environ['OPENAI_API_KEY']
+
+# Set up command line argument parser
+parser = argparse.ArgumentParser(description='Send text to OpenAI completion API')
+parser.add_argument('text', type=str, help='The text to send to the API', nargs='+')
+parser.add_argument('--model', default='text-davinci-003', type=str, help='The model to use for completion')
+parser.add_argument('--max_tokens', default=256, type=int, help='The maximum number of tokens to generate')
+parser.add_argument('--stop', default='', type=str, help='A string that, if encountered, will cause the API to stop generating tokens')
+parser.add_argument('--temperature', default=0.0, type=float, help='sampling temperature (default: 0.0)')
+parser.add_argument('--top_p', default=1.0, type=float, help='top-p filtering value (default: 1.0)')
+parser.add_argument('--frequency_penalty', default=0.0, type=float, help='penalty for generating frequent tokens (default: 0.0)')
+parser.add_argument('--presence_penalty', default=0.0, type=float, help='penalty for generating tokens not present in the prompt (default: 0.0)')
+parser.add_argument('--best_of', default=3, type=float, help='An optional integer specifying the number of completions to generate server-side and return the "best" (the one with the highest log probability per token)')
+
+# Parse command line arguments
+args = parser.parse_args()
+
+user_prompt = ' '.join(args.text)
+
+prompt = f"Use this format, replacing text in brackets with the result. Do not include the brackets in the output:\n[output]\n{user_prompt}:\n"
+
+# Get completion from API
+completion = openai.Completion.create(
+    engine=args.model,
+    prompt=args.stop + prompt,
+    max_tokens=args.max_tokens,
+    stop=args.stop,
+    temperature=args.temperature,
+    top_p=args.top_p,
+    frequency_penalty=args.frequency_penalty,
+    presence_penalty=args.presence_penalty,
+    best_of=args.best_of,
+)
+
+# Print completion
+print(completion['choices'][0]['text'])
